@@ -1,0 +1,17 @@
+{
+    "httpCode": "200",
+    "body": {
+        "app": {
+            "id": "string",
+            "name": "string",
+            "type": "string",
+            "person": {
+                "id": "string",
+                "name": "string",
+                "cpf": "string",
+                "cnpj": "string",
+                "createdAt": "date"
+            }
+        }
+    }
+}

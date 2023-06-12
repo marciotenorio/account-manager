@@ -2,5 +2,7 @@ package br.ufrn.imd.progdistribuida.accountmanager.util;
 
 public class Endpoint {
 
-    public static final String PERSON = "persons";
+
+    private Endpoint() {}
+    public static final String USERS = "users";
 }

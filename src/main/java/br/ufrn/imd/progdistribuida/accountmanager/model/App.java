@@ -3,17 +3,17 @@ package br.ufrn.imd.progdistribuida.accountmanager.model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.List;
+
 @Document(collection = "apps")
 public class App {
 
     @Id
     private String id;
-
     private String name;
-
     private AppType type;
-
-    private Person person;
+    private List<SocialMedia> socialMedias;
+    private String userId;
 
     public String getId() {
         return id;
@@ -39,11 +39,19 @@ public class App {
         this.type = type;
     }
 
-    public Person getPerson() {
-        return person;
+    public List<SocialMedia> getSocialMedias() {
+        return socialMedias;
     }
 
-    public void setPerson(Person person) {
-        this.person = person;
+    public void setSocialMedias(List<SocialMedia> socialMedias) {
+        this.socialMedias = socialMedias;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }

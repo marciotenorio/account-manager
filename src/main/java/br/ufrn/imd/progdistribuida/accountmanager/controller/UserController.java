@@ -1,84 +1,51 @@
 package br.ufrn.imd.progdistribuida.accountmanager.controller;
 
-import br.ufrn.imd.progdistribuida.accountmanager.config.Views;
-import br.ufrn.imd.progdistribuida.accountmanager.dto.Login;
-import br.ufrn.imd.progdistribuida.accountmanager.exception.UserNotFoundException;
+import br.ufrn.imd.progdistribuida.accountmanager.dto.UserAppDto;
 import br.ufrn.imd.progdistribuida.accountmanager.model.User;
-import br.ufrn.imd.progdistribuida.accountmanager.repository.UserRepository;
 import br.ufrn.imd.progdistribuida.accountmanager.service.UserService;
-import br.ufrn.imd.progdistribuida.accountmanager.security.TokenService;
-import com.fasterxml.jackson.annotation.JsonView;
-import org.springframework.beans.factory.annotation.Autowired;
+import br.ufrn.imd.progdistribuida.accountmanager.util.Endpoint;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequestMapping(Endpoint.USERS)
+@RequiredArgsConstructor
 public class UserController {
 
-	private final UserRepository userRepository;
-	private final UserService userService;
+    private final UserService userService;
 
-	@Autowired
-	private AuthenticationManager authenticationManager;
+    @GetMapping
+    public ResponseEntity<List<User>> findAll() {
+        return ResponseEntity.ok(userService.findAll());
+    }
 
-	@Autowired
-	private TokenService tokenService;
+    @GetMapping("{id}")
+    public ResponseEntity<User> findById(@PathVariable String id) {
+        return ResponseEntity.ok(userService.findById(id));
+    }
 
-	public UserController(UserRepository userRepository, UserService userService) {
-		this.userRepository = userRepository;
-		this.userService = userService;
+    @PutMapping
+    public ResponseEntity<User> update(@RequestBody User user) {
+        return ResponseEntity.ok(userService.update(user));
+    }
 
-	}
+    @PostMapping
+    public ResponseEntity<User> save(@RequestBody User user) {
+        return ResponseEntity.ok(userService.save(user));
+    }
 
-	@PostMapping("/login")
-	public String login(@RequestBody Login login) {
-		UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
-				login.login(), login.password());
-		Authentication authenticate = this.authenticationManager.authenticate(usernamePasswordAuthenticationToken);
+    @PostMapping("with-app")
+    public ResponseEntity<User> save(@RequestBody UserAppDto userApp) {
+        return ResponseEntity.ok(userService.save(userApp));
+    }
 
-		var user = (User) authenticate.getPrincipal();
-
-		return tokenService.gerarToken(user);
-
-	}
-	
-	@PostMapping("/register")
-	@JsonView(Views.Public.class)
-	public ResponseEntity<User> createUser(@RequestBody User user) {
-	    User createdUser = userService.createUser(user);
-	    return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
-	}
-
-	// ListarTodos apenas se autenticado
-	@GetMapping("/users")
-	@JsonView(Views.Admin.class)
-	public List<User> getUsers() {
-		return (List<User>) userRepository.findAll();
-	}
-
-	@GetMapping("/users/{id}")
-	public ResponseEntity<User> getUserById(@PathVariable String id) {
-	    User user = userRepository.findById(id)
-	            .orElseThrow(() -> new UserNotFoundException("Usuário com ID: "+id+" não foi encontrado"));
-	    return ResponseEntity.ok(user);
-	}
-
-	@PutMapping("/update/{id}")
-	public ResponseEntity<String> updateUser(@PathVariable String id, @RequestBody User updatedUser) {
-	    User user = userService.updateUser(id, updatedUser);
-	    return ResponseEntity.status(HttpStatus.OK).body("Usuário "+ user.getLogin() +" atualizado com sucesso");
-	}
-
-	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<String> deleteUser(@PathVariable String id) {
-	    userRepository.deleteById(id);
-	    return ResponseEntity.status(HttpStatus.OK).body("Usuário com id "+ id +" excluído com sucesso");
-	}
-
+    @DeleteMapping("{id}")
+    public ResponseEntity<Void> delete(@PathVariable String id) {
+        userService.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

@@ -29,7 +29,29 @@ public class UserService {
                 .orElseThrow(() -> new NotFoundException("Usuário não encontrado"));
     }
 
+    public User findByCpf(String cpf){
+        return userRepository.findByCpf(cpf);
+    }
+
+    public User findByCnpj(String cnpj){
+        return userRepository.findByCnpj(cnpj);
+    }
+
     public User save(User user) {
+        User userExists;
+
+        if (user.getCpf() != null && user.getCnpj() == null) {
+            userExists = userRepository.findByCpf(user.getCpf());
+        } else if (user.getCpf() == null && user.getCnpj() != null) {
+            userExists = userRepository.findByCnpj(user.getCnpj());
+        } else {
+            throw new UserException("Campo CPF ou CNPJ precisa estar preenchido.");
+        }
+
+        if (userExists != null) {
+            throw new UserException("Usuário já existe com este CPF/CNPJ");
+        }
+
         return userRepository.save(user);
     }
 

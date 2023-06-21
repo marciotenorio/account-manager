@@ -1,4 +1,5 @@
 # Gerenciador de Contas
+![Badge em Desenvolvimento](http://img.shields.io/static/v1?label=STATUS&message=EM%20DESENVOLVIMENTO&color=GREEN&style=for-the-badge)
 
 *Endpoints:*
 | Endpoint | Http Method | Descrição |
@@ -28,5 +29,8 @@ Uma especificação mais detalhada, porém ainda com um alto nível será encont
 -  Pesquisa de todos os aplicativos relacionados a determinado usuário
 
 - CRUD de aplicativos
-  
-  
+
+# Pessoas Desenvolvedoras do Projeto
+
+| [<img src="https://avatars.githubusercontent.com/u/32425824?v=4" width=115><br><sub>Márcio Tenório</sub>](https://github.com/marciotenorio) | [<img src="https://avatars.githubusercontent.com/u/85880875?v=4" width=115><br><sub>Dimitri-Code56</sub>](https://github.com/Dimitri-Code56) | [<img src="https://avatars.githubusercontent.com/u/60944861?v=4" width=115><br><sub>Joel Fernandes</sub>](https://github.com/JoelFnandes) |
+| :---: | :---: | :---: |

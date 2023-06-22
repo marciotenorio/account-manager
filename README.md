@@ -10,9 +10,7 @@
 * [Pessoas Desenvolvedoras do Projeto](#pessoas-desenvolvedoras-do-projeto)
   
 ## *Endpoints:*
-Abra o arquivo abaixo em: https://editor.swagger.io/
-
-[Uploading account_manager-openapi.yaml…]()
+Abra o arquivo **account_manager-openapi.yaml** em: https://editor.swagger.io/
 
 ### Casos de uso: Gerenciador de Contas
 

@@ -10,25 +10,9 @@
 * [Pessoas Desenvolvedoras do Projeto](#pessoas-desenvolvedoras-do-projeto)
   
 ## *Endpoints:*
-| Endpoint | Http Method | Descrição |
-| -------- | --------- | ----------
-| account-manager/users | GET | Retorna todas os usuários existentes |
-| account-manager/users/{id} | GET | Retorna o usuário especificado pelo id |
-| account-manager/users/cpf/90909090901 | GET | Retorna o usuário especificado pelo cpf |
-| account-manager/users/cnpj/90909090901 | GET | Retorna o usuário especificado pelo cnpj |
-| account-manager/users/{id}/apps | GET | Retorna todos os aplicativos relacionados ao usuário com este id |
-| account-manager/users | POST | Salva um usuário   |
-| account-manager/users | PUT | Atualiza um usuário   |
-| account-manager/users/{id} | DELETE | Remove um usuário  com o id especificado |
-| account-manager/apps | GET | Retorna todas os aplicativos existentes |
-| account-manager/apps/{id} | GET | Retorna o aplicativo especificado pelo id |
-| account-manager/apps | POST | Salva um aplicativo relacionando-o a um usuário   |
-| account-manager/apps | PUT | Atualiza um aplicativo   |
-| account-manager/apps/{id} | DELETE | Remove um aplicativo  com o id especificado |
+Abra o arquivo abaixo em: https://editor.swagger.io/
 
-### Detalhamento do Contrato da API
-
-Uma especificação mais detalhada, porém ainda com um alto nível será encontrada [aqui](https://github.com/marciotenorio/account-manager/tree/main/src/main/resources/contracts). 
+[Uploading account_manager-openapi.yaml…]()
 
 ### Casos de uso: Gerenciador de Contas
 

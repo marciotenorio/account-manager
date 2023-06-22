@@ -1,0 +1,302 @@
+openapi: "3.0.3"
+info:
+  title: "account_manager API"
+  description: "account_manager API"
+  version: "1.0.0"
+servers:
+  - url: "https://account_manager"
+paths:
+  /account-manager/users:
+    put:
+      summary: "PUT account-manager/users"
+      operationId: "update"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/User"
+        required: true
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/User"
+    post:
+      summary: "POST account-manager/users"
+      operationId: "save"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/User"
+        required: true
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/User"
+    get:
+      summary: "GET account-manager/users"
+      operationId: "findAll"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/User"
+  /account-manager/users/with-app:
+    post:
+      summary: "POST account-manager/users/with-app"
+      operationId: "save"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserAppDto"
+        required: true
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/User"
+  /account-manager/users/{id}:
+    delete:
+      summary: "DELETE account-manager/users/{id}"
+      operationId: "delete"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          schema:
+            type: "string"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Void"
+    get:
+      summary: "GET account-manager/users/{id}"
+      operationId: "findById"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          schema:
+            type: "string"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/User"
+  /account-manager/users/cpf/{cpf}:
+    get:
+      summary: "GET account-manager/users/cpf/{cpf}"
+      operationId: "findByCpf"
+      parameters:
+        - name: "cpf"
+          in: "path"
+          required: true
+          schema:
+            type: "string"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/User"
+  /account-manager/users/cnpj/{cnpj}:
+    get:
+      summary: "GET account-manager/users/cnpj/{cnpj}"
+      operationId: "findByCnpj"
+      parameters:
+        - name: "cnpj"
+          in: "path"
+          required: true
+          schema:
+            type: "string"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/User"
+  /account-manager/users/{userId}/apps:
+    get:
+      summary: "GET account-manager/users/{userId}/apps"
+      operationId: "findAppsByUserId"
+      parameters:
+        - name: "userId"
+          in: "path"
+          required: true
+          schema:
+            type: "string"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/App"
+  /account-manager/apps/{appId}:
+    put:
+      summary: "PUT account-manager/apps/{appId}"
+      operationId: "updateApp"
+      parameters:
+        - name: "appId"
+          in: "path"
+          required: true
+          schema:
+            type: "integer"
+            format: "int64"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/App"
+        required: true
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/App"
+    delete:
+      summary: "DELETE account-manager/apps/{appId}"
+      operationId: "deleteApp"
+      parameters:
+        - name: "appId"
+          in: "path"
+          required: true
+          schema:
+            type: "integer"
+            format: "int64"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Void"
+  /account-manager/apps:
+    post:
+      summary: "POST account-manager/apps"
+      operationId: "createApp"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/App"
+        required: true
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/App"
+  /account-manager/apps/{userId}:
+    get:
+      summary: "GET account-manager/apps/{userId}"
+      operationId: "findAppsByUserId"
+      parameters:
+        - name: "userId"
+          in: "path"
+          required: true
+          schema:
+            type: "string"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/App"
+components:
+  schemas:
+    User:
+      type: "object"
+      properties:
+        id:
+          type: "string"
+        name:
+          type: "string"
+        cpf:
+          type: "string"
+        cnpj:
+          type: "string"
+    SocialMedia:
+      type: "object"
+      properties:
+        type:
+          type: "string"
+          enum:
+            - "TWITTER"
+            - "LINKEDIN"
+        token:
+          type: "string"
+    AppDto:
+      type: "object"
+      properties:
+        name:
+          type: "string"
+        type:
+          type: "string"
+          enum:
+            - "GAMES"
+            - "SOCIAL_MEDIA"
+            - "HEAL"
+            - "FINANCE"
+        socialMedias:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/SocialMedia"
+    UserAppDto:
+      type: "object"
+      properties:
+        user:
+          $ref: "#/components/schemas/User"
+        app:
+          $ref: "#/components/schemas/AppDto"
+    Void:
+      type: "object"
+      properties: { }
+    App:
+      type: "object"
+      properties:
+        id:
+          type: "string"
+        name:
+          type: "string"
+        type:
+          type: "string"
+          enum:
+            - "GAMES"
+            - "SOCIAL_MEDIA"
+            - "HEAL"
+            - "FINANCE"
+        socialMedias:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/SocialMedia"
+        userId:
+          type: "string"

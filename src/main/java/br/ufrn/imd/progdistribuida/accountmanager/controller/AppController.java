@@ -29,14 +29,14 @@ public class AppController {
     }
 
     @PutMapping("/{appId}")
-    public ResponseEntity<App> updateApp(@PathVariable Long appId, @RequestBody App app) {
+    public ResponseEntity<App> updateApp(@PathVariable String appId, @RequestBody App app) {
         app.setId(appId);
         App updatedApp = appService.updateApp(app);
         return ResponseEntity.ok(updatedApp);
     }
 
     @DeleteMapping("/{appId}")
-    public ResponseEntity<Void> deleteApp(@PathVariable Long appId) {
+    public ResponseEntity<Void> deleteApp(@PathVariable String appId) {
         appService.deleteApp(appId);
         return ResponseEntity.noContent().build();
     }

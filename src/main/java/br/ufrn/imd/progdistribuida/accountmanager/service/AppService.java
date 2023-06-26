@@ -30,7 +30,7 @@ public class AppService {
         }
     }
 
-    public void deleteApp(Long appId) {
+    public void deleteApp(String appId) {
 
         if (appRepository.existsById(appId)) {
             appRepository.deleteById(appId);
